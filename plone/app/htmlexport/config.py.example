@@ -1,0 +1,9 @@
+folderish_types = ['Folder']  # Add folderish type of content types list here
+
+entry_types = ['Page']  # add entry type of content types here, those who dont have sub items
+
+image_types = ['Image']  # add image type portal types here
+
+video_types = ['']  # add video type portal types here
+
+file_types = ['File']  # add file type content types here
