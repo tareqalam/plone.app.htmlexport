@@ -10,7 +10,7 @@ except:
 
 
 class HTMLExport(BrowserView):
-    root_dir = '/tmp/'
+    root_dir = config.root_dir
 
     def parse(self, obj):
         html = obj.view()
@@ -79,6 +79,6 @@ class HTMLExport(BrowserView):
             shutil.rmtree(base_dir)
         os.makedirs(base_dir)
         self.go_deep_and_parse(base_dir, self.context)
-        self.context.MailHost.send('done export to location of server: %s' % base_dir, 'tareq.mist@gmail.com', 'info@localhost', 'htmlexport done')
+        self.context.MailHost.send('done export to location of server: %s' % base_dir, config.after_done_send_mail_to, config.from_mail, 'htmlexport done')
 
         return 'done'

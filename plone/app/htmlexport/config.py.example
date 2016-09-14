@@ -1,3 +1,9 @@
+after_done_send_mail_to = 'example@example.com'  # the mail that will be sent after completing the export
+
+from_mail = 'info@localhost'  # from email address of server
+
+root_dir = '/tmp/'  # on which folder in server the files will be created after export, make sure the folder has write permission for the plone user
+
 folderish_types = ['Folder']  # Add folderish type of content types list here
 
 entry_types = ['Page']  # add entry type of content types here, those who dont have sub items
