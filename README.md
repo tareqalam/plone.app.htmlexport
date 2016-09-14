@@ -1,10 +1,8 @@
 Introduction
 ============
 # How to install
-### Add in buildout eggs
-### Download zip or use mr-developer for finding the source
-### https://github.com/tareqalam/plone.app.htmlexport
-### run buildout
+### Please see details here how to install an addon
+### http://docs.plone.org/manage/installing/installing_addons.html
 
 # After install
 ### copy config.py.example and make config.py
