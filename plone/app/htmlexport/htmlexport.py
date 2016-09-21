@@ -13,13 +13,34 @@ class HTMLExport(BrowserView):
     root_dir = config.root_dir
 
     def parse(self, obj):
-        html = obj.view()
+        view_method = obj.defaultView()
+        html = getattr(obj, view_method)()
         soup = BeautifulSoup(html)
         # import pdb;pdb.set_trace()
-        head = soup.find('head')
-        head.append('<meta name="URL" content="%s" />' % obj.absolute_url())
+        # head = soup.find('head')
+        # head.append('<meta name="URL" content="%s" />' % obj.absolute_url())
 
-        return soup.prettify()
+        content = soup.find("div", {"class": "documentContent"})
+        link_parent = content.find('a', {'class': 'link-parent'})
+        if link_parent:
+            link_parent.replaceWith('')
+        documentActions = content.find('div', {'class': 'documentActions'})
+        if documentActions:
+            documentActions.replaceWith('')
+        jumpBox = content.find('div', {'class': 'jumpBox'})
+        if jumpBox:
+            jumpBox.replaceWith('')
+        if not content:
+            raise
+
+        head_extra = '<meta name="URL" content="%s" />' % obj.absolute_url()
+        parsed_html = '<html><head>%s</head><body>' % head_extra
+        # import pdb;pdb.set_trace()
+        parsed_html += content.prettify()
+        parsed_html += '</body></html>'
+        return parsed_html
+
+        # return soup.prettify()
 
     def parse_image(self, obj):
         return obj.download()
@@ -37,6 +58,8 @@ class HTMLExport(BrowserView):
 
     def go_deep_and_parse(self, base_dir, parent):
         objects = parent.objectValues()
+        if len(objects) == 0:
+            objects = [parent]
         for obj in objects:
             portal_type = obj.portal_type
 
@@ -79,6 +102,9 @@ class HTMLExport(BrowserView):
             shutil.rmtree(base_dir)
         os.makedirs(base_dir)
         self.go_deep_and_parse(base_dir, self.context)
-        self.context.MailHost.send('done export to location of server: %s' % base_dir, config.after_done_send_mail_to, config.from_mail, 'htmlexport done')
+        try:
+            self.context.MailHost.send('done export to location of server: %s' % base_dir, config.after_done_send_mail_to, config.from_mail, 'htmlexport done')
+        except:
+            pass
 
         return 'done'
