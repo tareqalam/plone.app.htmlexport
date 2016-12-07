@@ -13,3 +13,5 @@ image_types = ['Image']  # add image type portal types here
 video_types = ['']  # add video type portal types here
 
 file_types = ['File']  # add file type content types here
+
+ignore_types = []  # add file types you want to ignore

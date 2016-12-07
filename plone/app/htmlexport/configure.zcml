@@ -15,4 +15,14 @@
               allowed_interface=""
     />
 
+    <browser:page
+              for="*"
+              name="downloadfile"
+              class=".htmlexport.DownloadFile"
+              permission="zope2.Public"
+              allowed_interface=""
+    />
+
+    
+
 </configure>
