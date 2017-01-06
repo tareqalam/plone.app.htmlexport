@@ -110,7 +110,7 @@ class HTMLExport(BrowserView):
                     self.go_deep_and_parse(base_dir, obj)
                 except:
                     pass
-               
+
             elif portal_type in config.entry_types:
                 html = self.parse(obj)
                 base_dir = self.root_dir + '/'.join(obj.getPhysicalPath())
