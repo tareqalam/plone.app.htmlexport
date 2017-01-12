@@ -102,7 +102,7 @@ class HTMLExport(BrowserView):
             objects = [parent]
         for obj in objects:
             portal_type = obj.portal_type
-
+            self.context.plone_log(obj)
             if portal_type in config.folderish_types:
                 base_dir = self.root_dir + '/'.join(obj.getPhysicalPath())
                 try:
